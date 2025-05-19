@@ -1,5 +1,6 @@
 package lt.ca.javau12.ring_store.entities;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,12 +24,13 @@ public class Ring {
 	private String name;
 	private String metalType;
 	private double size;
+	private LocalDateTime createdAt = LocalDateTime.now();
 	
 	@OneToMany(mappedBy = "ring", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<RingImage> images = new ArrayList<>();
 	
 	@OneToOne
-	@JoinColumn
+	@JoinColumn(name = "user_id")
 	private User user;
 	
 	
@@ -37,13 +39,14 @@ public class Ring {
 	
 
 
-	public Ring(Long id, String description, String name, String metalType, double size, List<RingImage> images) {
+	public Ring(Long id, String description, String name, String metalType, double size, List<RingImage> images,LocalDateTime createdAt) {
 		this.id = id;
 		this.description = description;
 		this.name = name;
 		this.metalType = metalType;
 		this.size = size;
 		this.images = images;
+		this.createdAt = createdAt;
 	}
 
 
@@ -115,6 +118,21 @@ public class Ring {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+
+
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+
+
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+	
 	
 	
 	

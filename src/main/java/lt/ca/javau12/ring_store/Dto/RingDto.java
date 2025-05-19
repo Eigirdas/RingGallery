@@ -4,6 +4,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 
-public record RingDto(Long id, String description, String name,String metalType,double Size,List<String> imageUrls,String submittedByName,LocalDateTime createdAt) {
-
-}
+public record RingDto(
+	    String name,
+	    String description,
+	    String metalType,
+	    double size,
+	    String userName,
+	    LocalDateTime createdAt,
+	    List<String> imageUrls
+	) {}

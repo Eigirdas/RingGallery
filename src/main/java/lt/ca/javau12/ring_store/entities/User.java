@@ -25,7 +25,7 @@ public class User {
 	@Column(unique = true, nullable = false)
 	private String editToken;
 	
-    @OneToOne(mappedBy = "submittedBy", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Ring ring;
 
 	public User() {
