@@ -24,6 +24,8 @@ public class RingImage {
 	@JoinColumn(name = "ring_id")
 	private Ring ring;
 	
+	private String filename;
+	
 	
 
 	public RingImage() {
@@ -31,9 +33,10 @@ public class RingImage {
 	
 	
 
-	public RingImage(byte[] image, Ring ring) {
+	public RingImage(byte[] image, Ring ring,String filename) {
 		this.image = image;
 		this.ring = ring;
+		this.filename = filename;
 	}
 
 	public long getId() {
@@ -59,6 +62,19 @@ public class RingImage {
 	public void setRing(Ring ring) {
 		this.ring = ring;
 	}
+
+
+
+	public String getFilename() {
+		return filename;
+	}
+
+
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	
 	
 	
 	

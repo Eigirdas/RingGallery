@@ -9,7 +9,6 @@ public record RingDto(
 	    String description,
 	    String metalType,
 	    double size,
-	    String userName,
 	    LocalDateTime createdAt,
 	    List<String> imageUrls
 	) {}

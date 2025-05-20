@@ -7,11 +7,6 @@ import lt.ca.javau12.ring_store.entities.User;
 
 @Component
 public class UserMapper {
-	private final RingMapper ringMapper;
-	
-	public UserMapper(RingMapper ringMapper) {
-		this.ringMapper = ringMapper;
-	}
 	
 	public UserDto toDto(User user) {
 		return new UserDto(
@@ -19,8 +14,7 @@ public class UserMapper {
 				user.getName(),
 				user.getEmail(),
 				user.getEditToken(),
-				user.getCreatedAt(),
-				user.getRing() != null ? ringMapper.toDto(user.getRing()) : null
+				user.getCreatedAt()
 				);
 	}
 	

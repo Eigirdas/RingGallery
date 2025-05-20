@@ -1,10 +1,8 @@
 package lt.ca.javau12.ring_store.controllers;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
 import lt.ca.javau12.ring_store.Dto.RingDto;
 import lt.ca.javau12.ring_store.services.RingService;
 
@@ -36,7 +31,7 @@ public class RingController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<RingDto> findById(@PathVariable Long id){
-		return ResponseEntity.of(ringService.findById(id));
+		return ResponseEntity.ok(ringService.findById(id));
 	}
 	
 	@PostMapping()
@@ -47,7 +42,7 @@ public class RingController {
 				.body(created);
 	}
 	
-	@PutMapping("/id")
+	@PutMapping("/{id}")
 	public ResponseEntity<RingDto> update(@PathVariable Long id,@RequestBody RingDto dto){
 		RingDto updated = ringService.update(id,dto);
 		return ResponseEntity.ok(updated);
@@ -59,24 +54,9 @@ public class RingController {
 		return ResponseEntity.noContent().build();
 	}
 	
+
 	
-	// photos
-	
-	@PostMapping("/{id}/ring_image")
-	public ResponseEntity<Void> uploadPhotos(
-			@PathVariable Long id,
-			@RequestParam List<MultipartFile> files) throws IOException{
-		ringService.uploadPhotos(id,files);
-		return ResponseEntity.ok().build();
-	}
-	
-	@GetMapping("/{id}/ring_image")
-	public ResponseEntity<byte[]> getAvatar(@PathVariable Long id){
-		byte[] image = ringService.getImage(id);
-		return ResponseEntity.ok()
-				.contentType(MediaType.IMAGE_JPEG)
-				.body(image);
-	}
+
 	
 	
 			

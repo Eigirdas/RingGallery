@@ -24,19 +24,17 @@ public class RingMapper {
         	    ring.getDescription(),
         	    ring.getMetalType(),
         	    ring.getSize(),
-        	    ring.getUser().getName(),
         	    ring.getCreatedAt(),
         	    images
         	);
     }
     
-    public Ring toEntity(RingDto dto,User user) {
+    public Ring toEntity(RingDto dto) {
     	Ring ring = new Ring();
     	ring.setName(dto.name());
     	ring.setDescription(dto.description());
     	ring.setMetalType(dto.metalType());
     	ring.setSize(dto.size());
-    	ring.setUser(user);
     	return ring;
     }
 }

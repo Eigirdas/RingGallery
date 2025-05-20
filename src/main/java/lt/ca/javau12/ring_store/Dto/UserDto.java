@@ -8,5 +8,4 @@ public record UserDto(
 		String email,
 		String editToken,
 		LocalDateTime submittedAt
-		,RingDto ring
 		) {}
