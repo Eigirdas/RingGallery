@@ -1,10 +1,11 @@
+
 package lt.ca.javau12.ring_store.mappers;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import lt.ca.javau12.ring_store.Dto.RingCreateDto;
 import lt.ca.javau12.ring_store.Dto.RingDto;
 import lt.ca.javau12.ring_store.entities.Ring;
 import lt.ca.javau12.ring_store.entities.User;
@@ -12,29 +13,51 @@ import lt.ca.javau12.ring_store.entities.User;
 @Component
 public class RingMapper {
 
+    private final UserMapper userMapper;
+
+    public RingMapper(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
+
     public RingDto toDto(Ring ring) {
         List<String> images = ring
                 .getImages()
                 .stream()
                 .map(image -> "/images/" + image.getId()) 
-                .collect(Collectors.toList());             
-        
+                .toList();
+
         return new RingDto(
-        	    ring.getName(),
-        	    ring.getDescription(),
-        	    ring.getMetalType(),
-        	    ring.getSize(),
-        	    ring.getCreatedAt(),
-        	    images
-        	);
+            ring.getId(),
+            ring.getName(),
+            ring.getDescription(),
+            ring.getMetalType(),
+            ring.getSize(),
+            images,
+            ring.getUser() != null ? userMapper.toDto(ring.getUser()) : null
+        );
     }
     
-    public Ring toEntity(RingDto dto) {
-    	Ring ring = new Ring();
-    	ring.setName(dto.name());
-    	ring.setDescription(dto.description());
-    	ring.setMetalType(dto.metalType());
-    	ring.setSize(dto.size());
-    	return ring;
+   
+
+    public Ring toEntity(RingCreateDto dto, User user) {
+        Ring ring = new Ring();
+        ring.setName(dto.getName());
+        ring.setDescription(dto.getDescription());
+        ring.setMetalType(dto.getMetalType());
+        ring.setSize(dto.getSize());
+        ring.setUser(user);
+        return ring;
     }
+    
+    public Ring toEntity(RingDto dto, User user) {
+        Ring ring = new Ring();
+        ring.setName(dto.getName());
+        ring.setDescription(dto.getDescription());
+        ring.setMetalType(dto.getMetalType());
+        ring.setSize(dto.getSize());
+        ring.setUser(user);
+        return ring;
+    }
+    
+    
 }

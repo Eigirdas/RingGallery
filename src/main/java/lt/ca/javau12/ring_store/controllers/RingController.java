@@ -3,6 +3,7 @@ package lt.ca.javau12.ring_store.controllers;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.validation.Valid;
+import lt.ca.javau12.ring_store.Dto.RingCreateDto;
 import lt.ca.javau12.ring_store.Dto.RingDto;
 import lt.ca.javau12.ring_store.services.RingService;
 
@@ -34,12 +38,11 @@ public class RingController {
 		return ResponseEntity.ok(ringService.findById(id));
 	}
 	
-	@PostMapping()
-	public ResponseEntity<RingDto> create(@RequestBody RingDto dto){
-		RingDto created = ringService.create(dto);
+	@PostMapping("/{userId}")
+	public ResponseEntity<RingDto> createRing(@PathVariable Long userId, @Valid @RequestBody RingCreateDto dto){
 		return ResponseEntity
 				.status(HttpStatus.CREATED)
-				.body(created);
+				.body(ringService.createRing(dto, userId));
 	}
 	
 	@PutMapping("/{id}")

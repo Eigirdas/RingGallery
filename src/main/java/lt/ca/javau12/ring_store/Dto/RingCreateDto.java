@@ -1,33 +1,29 @@
 package lt.ca.javau12.ring_store.Dto;
 
-import java.util.List;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Positive;
 
-public class RingDto {
-    private Long id;
+public class RingCreateDto {
+
+    @NotEmpty
     private String name;
-    private String description;
-    private String metalType;
-    private double size;
-    private List<String> images;
-    private UserDto user;
 
-    public RingDto(Long id, String name, String description, String metalType, double size, List<String> images, UserDto user) {
-        this.id = id;
+    private String description;
+
+    @NotEmpty
+    private String metalType;
+
+    @Positive
+    private double size;
+
+    public RingCreateDto() {}
+
+    public RingCreateDto(String name, String description, String metalType, double size) {
         this.name = name;
         this.description = description;
         this.metalType = metalType;
         this.size = size;
-        this.images = images;
-        this.user = user;
     }
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;
@@ -60,22 +56,6 @@ public class RingDto {
 	public void setSize(double size) {
 		this.size = size;
 	}
-
-	public List<String> getImages() {
-		return images;
-	}
-
-	public void setImages(List<String> images) {
-		this.images = images;
-	}
-
-	public UserDto getUser() {
-		return user;
-	}
-
-	public void setUser(UserDto user) {
-		this.user = user;
-	}
-
+    
     
 }
