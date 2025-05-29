@@ -33,7 +33,7 @@ public class RingMapper {
             ring.getMetalType(),
             ring.getSize(),
             images,
-            ring.getUser() != null ? userMapper.toDto(ring.getUser()) : null
+            ring.getUser() != null ? ring.getUser().getId() : null
         );
     }
     

@@ -55,6 +55,15 @@ public class RingService {
 		existing.setMetalType(dto.getMetalType());
 		existing.setSize(dto.getSize());
 		
+		// fetch user by id and set it
+		if(dto.getUserId() != null) {
+			User user = userRepository.findById(dto.getUserId())
+					.orElseThrow(() -> new RuntimeException("No user found"));
+			existing.setUser(user);
+		} else {
+			existing.setUser(null);
+		}
+		
 		return ringMapper.toDto(ringRepository.save(existing));
 	}
 

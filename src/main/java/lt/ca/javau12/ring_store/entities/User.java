@@ -1,6 +1,9 @@
 package lt.ca.javau12.ring_store.entities;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,9 +20,10 @@ public class User {
 	private Long id;
 	private String name;
 	private String email;
-	private String editToken;
+	
 	
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Ring> rings;
 
 	public User() {

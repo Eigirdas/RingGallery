@@ -3,6 +3,7 @@ package lt.ca.javau12.ring_store.controllers;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,15 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import jakarta.validation.Valid;
 import lt.ca.javau12.ring_store.Dto.UserDto;
+import lt.ca.javau12.ring_store.services.UserManagementService;
 import lt.ca.javau12.ring_store.services.UserService;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 	private final UserService userService;
+	private final UserManagementService userManagementService;
 	
-	public UserController(UserService userService) {
+	public UserController(UserService userService,UserManagementService userManagementService) {
 		this.userService = userService;
+		this.userManagementService = userManagementService;
 	}
 	
 	@GetMapping
@@ -56,7 +61,8 @@ public class UserController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id){
-		userService.deleteUser(id);
+		// handle the delete of the user and set rings to null
+		userManagementService.deleteUserLeaveRings(id);
 		return ResponseEntity.noContent().build();
 	}
 	

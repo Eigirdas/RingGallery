@@ -9,16 +9,16 @@ public class RingDto {
     private String metalType;
     private double size;
     private List<String> images;
-    private UserDto user;
+    private Long userId;
 
-    public RingDto(Long id, String name, String description, String metalType, double size, List<String> images, UserDto user) {
+    public RingDto(Long id, String name, String description, String metalType, double size, List<String> images, Long userId) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.metalType = metalType;
         this.size = size;
         this.images = images;
-        this.user = user;
+        this.userId = userId;
     }
 
 	public Long getId() {
@@ -69,13 +69,14 @@ public class RingDto {
 		this.images = images;
 	}
 
-	public UserDto getUser() {
-		return user;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setUser(UserDto user) {
-		this.user = user;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
+	
 
     
 }

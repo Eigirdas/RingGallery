@@ -54,10 +54,8 @@ public class UserService {
 	
 	
 	public void deleteUser(Long id) {
-		User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("No user found"));
-		
-		// if user is deleted, all the rings will be deleted as well because of Cascade (CascadeType.all)
-		userRepository.delete(user);
+
+		userRepository.deleteById(id);
 	}
 	
 

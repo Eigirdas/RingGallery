@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.UUID;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -25,16 +26,19 @@ public class Ring {
 	private String name;
 	private String metalType;
 	private double size;
-	private LocalDateTime createdAt = LocalDateTime.now();
+	private final LocalDateTime createdAt = LocalDateTime.now();
+	private String editToken;
 	
 	@OneToMany(mappedBy = "ring", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<RingImage> images = new ArrayList<>();
 	
 	 @ManyToOne
-	 @JoinColumn(name = "user_id", nullable = false)
+	 @JoinColumn(name = "user_id", nullable = true) // nullable true, in case we want to nullify user (after deletion)
 	 private User user;
 	
-	public Ring() {}
+	public Ring() {
+		editToken = UUID.randomUUID().toString();
+	}
 
 	public Ring(Long id, String description, String name, String metalType, double size, List<RingImage> images) {
 		this.id = id;
@@ -43,6 +47,12 @@ public class Ring {
 		this.metalType = metalType;
 		this.size = size;
 		this.images = images;
+	}
+	
+	
+
+	public String getEditToken() {
+		return editToken;
 	}
 
 	public Long getId() {
