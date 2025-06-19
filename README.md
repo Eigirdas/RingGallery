@@ -1,84 +1,60 @@
-Ring Gallery - Backend
-This is the backend service for the Ring Gallery application, built with Spring Boot. It provides REST APIs to manage users, rings, and ring images, along with authentication and role-based access control.
+# 💍 Ring Gallery – Backend
 
-Features
-User registration and login with authentication
+This is the **backend** part of the Ring Gallery project. It is built using **Spring Boot** and provides secure REST APIs to support user registration, authentication, ring management, and image upload.
 
-Admin and User roles with different permissions
+> 📦 The frontend can be found here: [Ring Gallery Frontend](https://github.com/Eigirdas/ring-gallery-front)
 
-Users can create, edit, and delete their own rings and ring photos
+---
 
-Admin can manage all users, rings, and associated data
+## 🚀 Features
 
-Ring browsing available to unauthenticated users
+- ✅ User registration and login with role-based authentication
+- 🧑 Users can:
+  - View all rings (even without logging in)
+  - Create, update, and delete their own rings
+  - Upload and update ring images
+- 👑 Admin can:
+  - View and manage all users and rings
+  - Perform all user actions plus admin-specific tasks
+- 🖼️ Image upload and download via multipart file support
+- 🔐 Authentication and authorization via Spring Security
 
-Image upload and retrieval support for ring photos
+---
 
-Important Notes
-In SecurityInitConfiguration.java, there is a default admin user named Dummy created on first run for testing and administration.
+## ⚠️ Important Note
 
-This Dummy user should be deleted after the initial setup for security reasons.
+A **dummy admin user** is automatically created on first run to simplify testing:
 
-Technologies
-Java 17+
+- Username: `dummy`
+- Password: _[set in code or config]_
 
-Spring Boot (Web, Security, Validation, JPA)
+**Please delete this user after the first startup for security reasons!**  
+You’ll find this logic in `SecurityInitConfiguration.java`.
 
-Hibernate / JPA for persistence
+---
 
-JWT or session-based authentication (whichever you use)
+## 🧰 Tech Stack
 
-Multipart file upload for ring images
+- Java 17+
+- Spring Boot (Web, Security, JPA, Validation)
+- Hibernate (JPA implementation)
+- Multipart file handling for images
+- Swagger UI for API testing
 
-Getting Started
-Prerequisites
-Java 17+
+---
 
-Maven 3.8+
+## 🛠️ Getting Started
 
-A configured database (e.g., PostgreSQL, MySQL) — configure application.properties accordingly
+### Prerequisites
 
-Running the Application
-Clone this repository:
+- Java 17+
+- Maven 3.8+
+- A running SQL database (e.g., PostgreSQL, MySQL)
 
-bash
-Copy
-Edit
+### Clone and Run
+
+```bash
 git clone https://github.com/Eigirdas/RingGallery.git
 cd RingGallery
-Configure your database in src/main/resources/application.properties (or use environment variables).
-
-Build and run the backend:
-
-bash
-Copy
-Edit
 mvn clean install
 mvn spring-boot:run
-The backend will be available at http://localhost:8080
-
-Access API documentation via Swagger UI at:
-http://localhost:8080/swagger-ui/index.html
-
-Frontend
-The frontend application is in a separate repository:
-https://github.com/Eigirdas/ring-gallery-front
-
-API Overview
-/auth/** — user registration, login, logout
-
-/rings/** — ring CRUD operations
-
-/images/** — image upload and retrieval
-
-Admin routes are prefixed with /admin/
-
-Security
-Admin and User roles enforced in backend
-
-Default admin user Dummy created on startup; delete this user as soon as possible
-
-Authentication required for ring creation and modification
-
-Contribution
-Feel free to fork, improve, and create pull requests!
