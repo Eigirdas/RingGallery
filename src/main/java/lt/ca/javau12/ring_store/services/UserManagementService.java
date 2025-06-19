@@ -37,7 +37,7 @@ public class UserManagementService {
 	            .orElseThrow(() -> new IllegalStateException("Dummy user not found"));
 
 	        userRings.forEach(r -> r.setUser(dummyUser));
-	        ringRepository.flush();
+	        ringRepository.flush(); // is karto update db pries istrinant, kad ziedai atsirastu pas dummy
 	    }
 
 	    userService.deleteUser(userId);

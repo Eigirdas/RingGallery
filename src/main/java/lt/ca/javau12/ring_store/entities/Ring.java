@@ -1,6 +1,5 @@
 package lt.ca.javau12.ring_store.entities;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -8,7 +7,6 @@ import java.util.UUID;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,14 +24,13 @@ public class Ring {
 	private String name;
 	private String metalType;
 	private double size;
-	private final LocalDateTime createdAt = LocalDateTime.now();
 	private String editToken;
 	
-	@OneToMany(mappedBy = "ring", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "ring", cascade = CascadeType.ALL, orphanRemoval = true) // is ring is deleted images deleted
 	private List<RingImage> images = new ArrayList<>();
 	
 	 @ManyToOne
-	 @JoinColumn(name = "user_id", nullable = true) // nullable true, in case we want to nullify user (after deletion)
+	 @JoinColumn(name = "user_id", nullable = true) // if user is deleted, rings should be kept
 	 private User user;
 	
 	public Ring() {

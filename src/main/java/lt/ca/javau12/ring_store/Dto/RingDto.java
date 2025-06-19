@@ -10,8 +10,9 @@ public class RingDto {
     private double size;
     private List<String> images;
     private Long userId;
+    private String username;
 
-    public RingDto(Long id, String name, String description, String metalType, double size, List<String> images, Long userId) {
+    public RingDto(Long id, String name, String description, String metalType, double size, List<String> images, Long userId,String username) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -19,6 +20,7 @@ public class RingDto {
         this.size = size;
         this.images = images;
         this.userId = userId;
+        this.username = username;
     }
 
 	public Long getId() {
@@ -76,7 +78,17 @@ public class RingDto {
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-	
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	
+	
+	
     
 }

@@ -3,12 +3,16 @@ package lt.ca.javau12.ring_store.controllers;
 import jakarta.validation.Valid;
 import lt.ca.javau12.ring_store.Dto.RingCreateDto;
 import lt.ca.javau12.ring_store.Dto.RingDto;
+import lt.ca.javau12.ring_store.Dto.RingUpdateAdminDto;
+import lt.ca.javau12.ring_store.Dto.RingUpdateDto;
 import lt.ca.javau12.ring_store.services.RingService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -39,9 +43,12 @@ public class AdminRingController {
 	}
 
     @PutMapping("/{id}")
-    public ResponseEntity<RingDto> updateRing(@PathVariable Long id,
-                                              @Valid @RequestBody RingDto dto) {
-        RingDto updated = ringService.update(id, dto);
+    public ResponseEntity<RingDto> updateRingAdmin(
+            @PathVariable Long id,
+            @RequestPart("ring") RingUpdateAdminDto dto, // for multiPart file
+            @RequestPart(value = "images", required = false) List<MultipartFile> newImages
+    ) throws IOException {
+        RingDto updated = ringService.updateRingAdmin(id, dto, newImages);
         return ResponseEntity.ok(updated);
     }
 

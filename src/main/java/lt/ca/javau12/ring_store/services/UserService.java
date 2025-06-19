@@ -2,7 +2,7 @@ package lt.ca.javau12.ring_store.services;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +14,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lt.ca.javau12.ring_store.Dto.LoginResponse;
 import lt.ca.javau12.ring_store.Dto.UserCreateDto;
 import lt.ca.javau12.ring_store.Dto.UserDto;
+import lt.ca.javau12.ring_store.Dto.UserUpdateDto;
 import lt.ca.javau12.ring_store.entities.User;
 import lt.ca.javau12.ring_store.mappers.UserMapper;
 import lt.ca.javau12.ring_store.repositories.UserRepository;
@@ -50,23 +51,24 @@ public class UserService {
 	}
 	
 	public UserDto getUserById(Long id){
-		User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("No user found"));
+		User user = userRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("No user found"));
 		return userMapper.toDto(user);
 	}
 	
-	public UserDto createUser(UserDto dto) {
-		User user = new User();
-		user.setUsername(dto.getName());
-		user.setEmail(dto.getEmail());
-		User savedUser = userRepository.save(user);
-		return userMapper.toDto(savedUser);
-	}
 	
-	public UserDto editUser(Long id,UserDto dto) {
+	public UserDto editUser(Long id,UserUpdateDto dto) {
 		User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("No user found"));
 		
 		user.setUsername(dto.getName());
 		user.setEmail(dto.getEmail());
+		
+		// jei adminas nieko neirase, nekeiciam password
+		if(dto.getPassword() != null && !dto.getPassword().isEmpty()) {
+			user.setPassword(passwordEncoder.encode(dto.getPassword()));
+		}
+		
+		user.setRole(dto.getRole());
 		
 		User updatedUser = userRepository.save(user);
 		return userMapper.toDto(updatedUser);
@@ -105,13 +107,13 @@ public class UserService {
 	public LoginResponse authenticateUser(@NotEmpty String username, @NotEmpty String password) {
 		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username,password));
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-		final String jwt = jwtUtils.generateToken(userDetails.getUsername());
+		final String jwt = jwtUtils.generateToken(userDetails);
 		return new LoginResponse(jwt);
 	}
-
-
-
-
 	
-
+    public Long extractUserIdFromUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found with username: " + username))
+                .getId();
+    }
 }

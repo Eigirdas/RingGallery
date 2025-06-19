@@ -23,11 +23,11 @@ public class InitConfiguration {
 	@Bean
 	CommandLineRunner init(PasswordEncoder encoder) {
 	    return args -> {
-	        if(userRepository.findByUsername("alice").isEmpty()) {
+	        if(userRepository.findByUsername("dummy").isEmpty()) {
 	            User user = new User(
-	                "alice", 
-	                encoder.encode("pass1234"),
-	                "alice@mail.com", 
+	                "dummy", 
+	                encoder.encode("password"),
+	                "dummy@mail.com", 
 	                Role.ADMIN,
 	                true
 	            );

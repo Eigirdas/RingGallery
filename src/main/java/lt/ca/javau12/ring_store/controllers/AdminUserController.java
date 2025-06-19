@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import jakarta.validation.Valid;
 import lt.ca.javau12.ring_store.Dto.UserCreateDto;
 import lt.ca.javau12.ring_store.Dto.UserDto;
+import lt.ca.javau12.ring_store.Dto.UserUpdateDto;
 import lt.ca.javau12.ring_store.services.UserManagementService;
 import lt.ca.javau12.ring_store.services.UserService;
 
@@ -42,7 +43,7 @@ public class AdminUserController {
 		
 	}
 	
-    @PostMapping("/auth/register")
+    @PostMapping
     public ResponseEntity<UserDto> registerUser(@RequestBody UserCreateDto dto) {
     	UserDto created = userService.registerNewUser(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
@@ -50,11 +51,11 @@ public class AdminUserController {
 	
 
 	
-	@PutMapping("/{id}")
-	public ResponseEntity<UserDto> update(@Valid @RequestBody UserDto dto,@PathVariable Long id){
-		UserDto updated = userService.editUser(id, dto);
-		return ResponseEntity.ok(updated);
-	}
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDto> update(@Valid @RequestBody UserUpdateDto dto, @PathVariable Long id) {
+        UserDto updated = userService.editUser(id, dto);
+        return ResponseEntity.ok(updated);
+    }
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id){

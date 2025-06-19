@@ -13,10 +13,7 @@ import lt.ca.javau12.ring_store.entities.User;
 @Component
 public class RingMapper {
 
-    private final UserMapper userMapper;
-
     public RingMapper(UserMapper userMapper) {
-        this.userMapper = userMapper;
     }
 
     public RingDto toDto(Ring ring) {
@@ -27,15 +24,16 @@ public class RingMapper {
                 .toList();
 
         return new RingDto(
-            ring.getId(),
-            ring.getName(),
-            ring.getDescription(),
-            ring.getMetalType(),
-            ring.getSize(),
-            images,
-            ring.getUser() != null ? ring.getUser().getId() : null
-        );
-    }
+                ring.getId(),
+                ring.getName(),
+                ring.getDescription(),
+                ring.getMetalType(),
+                ring.getSize(),
+                images,
+                ring.getUser().getId(),
+                ring.getUser().getUsername()
+            );
+        }
     
    
 

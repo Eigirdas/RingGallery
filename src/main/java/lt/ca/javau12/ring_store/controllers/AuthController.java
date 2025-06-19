@@ -1,11 +1,9 @@
 package lt.ca.javau12.ring_store.controllers;
 
 import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +15,6 @@ import lt.ca.javau12.ring_store.Dto.LoginRequest;
 import lt.ca.javau12.ring_store.Dto.LoginResponse;
 import lt.ca.javau12.ring_store.Dto.UserCreateDto;
 import lt.ca.javau12.ring_store.Dto.UserDto;
-import lt.ca.javau12.ring_store.security.JwtUtils;
 import lt.ca.javau12.ring_store.services.UserService;
 
 @RestController
@@ -32,9 +29,11 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserDto> registerUser(@RequestBody UserCreateDto dto) {
+    public ResponseEntity<UserDto> registerNewUser(@RequestBody UserCreateDto dto) {
     	UserDto created = userService.registerNewUser(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+        return ResponseEntity
+        		.status(HttpStatus.CREATED)
+        		.body(created);
     }
     
     @PostMapping("/login")
